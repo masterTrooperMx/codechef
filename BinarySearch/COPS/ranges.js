@@ -38,3 +38,21 @@ console.log((rangeIntersection(O, C)).length);
 A = range(1, 31); // [1, 31]
 B = range(19, 45); // [19, 45]
 console.table(rangeIntersection(O, rangeMerge(A, B)));
+
+function range(arr) {
+    let [start, end] = arr;
+    if(start === end) return [start];
+    return [start, ...range(start + 1, end)];
+}
+
+function mergeRange(r1, r2) {
+    return [...r1, ...r2];
+}
+
+const R = [[1, 64],
+     [1, 68],
+     [1, 100],
+     [1, 100]];
+
+//console.log(mergeRange(range(R[0][0]), range(R[0][1])));
+console.log(range(R[0]));
