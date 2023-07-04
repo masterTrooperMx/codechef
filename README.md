@@ -6,10 +6,13 @@ Each folder is a speciality in codechef site that I followed.
 
 ## Features
 
+- Basic Programming
+- Arrays
+- Strings
+- Sorting
 - BinarySearch - algorithms based in discrete math
-- Live previews
-- Fullscreen mode
-- Cross platform
+- TBD
+- TBD
 
 
 ## Documentation
