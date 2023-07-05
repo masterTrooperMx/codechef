@@ -8,14 +8,15 @@
  * However, Sheokand is preparing for his exams. 
  * Can you help him find the minimum number of operations required to convert N into a valid integer M?
  */
-console.time('SHKNUM');
+console.time('SHKNUM-2');
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', cacheInput).on('end', main);
 let input ='';
+let N = 0;
 let potencias = [];
-const max = 39;
+const max = 31;
 
 /**
  * The first line of the input contains a single integer T denoting the number of test cases. 
@@ -31,40 +32,39 @@ function prepareInput() {
     // prepare potence of upper triangle of squared matrix
     for(let i = 0; i < max; i++){
         for(let j = 1; j < max;  j++){
-            if(j != i && j > i){
+            if(j != i){
                 //console.log(i,j);
                 potencias.push(Math.pow(2,i) + Math.pow(2,j));
             }
         }
     }
     potencias = potencias.sort(function(a,b){return a-b}); // asc order
+    potencias = [... new Set(potencias)]; // unique vals
 }
 
 function buscaPotencias(num){
-    let res = [];
-    for(let i = 0; i < potencias.length; i++){
-        if(potencias[i] >= num) {
-            res.push(potencias[i],potencias[i-1]);
+    let i = 0;
+    while(i++ < potencias.length){
+        if(potencias[i] >= num){
             break;
         }
     }
-    return res;
+    if (potencias[i] == 0) {
+        console.log(0);
+    } else {
+        console.log(Math.min(potencias[i]-N, N-potencias[i-1]));
+    }
 }
 
 function main() {
     prepareInput();
     let T = Number(input.splice(0, 1)[0]); // test cases
     for(let i = 0; i < T; i++) {
-        let N = Number(input.splice(0, 1)[0]); // number of students
-        [up, down] = buscaPotencias(N);
-        if(up-N == 0){
-            console.log(0);
-        } else {
-            console.log(Math.min(Math.abs(up-N), Math.abs(N-down)));
-        }
+        N = Number(input.splice(0, 1)[0]); // number of students
+        buscaPotencias(N);
         //console.log(i, N, up-N, N-down);
     }
 }
 
 main();
-console.timeEnd('SHKNUM');
+console.timeEnd('SHKNUM-2');
