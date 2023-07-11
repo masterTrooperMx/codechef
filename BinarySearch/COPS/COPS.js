@@ -7,13 +7,14 @@
  * Devu quiere saber cuántas casas son seguras para escapar de la policía. 
  * Ayúdelo a obtener esta información.
  */
-console.time('COPS');
+console.time('COPS'); // a la primera!
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', cacheInput).on('end', main);
 let input ='';
-let inf = 1, sup = 100;
+const inf = 1, sup = 100;
+let theRange = [];
 
 function cacheInput(data) {
     input += data;
@@ -22,21 +23,8 @@ function cacheInput(data) {
  * x*y = casas visitar
  * M = [M1, M2, ..., Mk]
  * para cada Mi calcular su dominio en la recta
+ * un rango es un arreglo con [inicio, final], son cerrados y pueden haber muchos siempre y cuando sean discontinuos, si son continuos se hace merge y sale uno unico
  */
-
-let x = 7, y = 8;
-let dist = x*y;
-const M = [12, 52, 56, 8];
-
-M = M.sort(function(a,b){ return a-b; }); // orden numerico
-
-console.log(dist, M);
-
-const getDist = (h, d) => {
-    // h place, d distance
-    let rigth = 0, left = 0;
-    
-}
 function prepareInput() {
     input = input.split('\n');//map(Number);
 }
@@ -46,30 +34,82 @@ function range(start, end) {
     return [start, ...range(start + 1, end)];
 }
 
+// https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
+Number.prototype.between = function(a, b, inclusive) {
+    var min = Math.min.apply(Math, [a, b]),
+      max = Math.max.apply(Math, [a, b]);
+    return inclusive ? this >= min && this <= max : this > min && this < max;
+  };
+
+  function inRange(r1, r2){ // r1 is theRange, r2 any range
+    let A = r1;
+    let [a0, a1] = [A[0], A[1]], [b0, b1] = r2;
+    if(A == []){ // handle null values
+        a0 = b0, a1 = b1;   
+    }
+    if(typeof(a0) == "number" && typeof(a1) == "number"){
+        if(a0.between(b0,b1,true) || a1.between(b0,b1,true) || b0.between(a0,a1,true) || b1.between(a0,a1,true)){
+            console.log('in', a0, a1, b0, b1);
+            return true;
+        } else {
+            console.log('out');
+            return false;
+        }
+    } else { console.log(typeof(a0), typeof(a1)); }
+}
+
 function main() {
     prepareInput();
     let T = input.splice(0, 1)[0]; // test cases
     for(let i = 0; i < T; i++){
-        let [M, x, y] = (input.splice(0, 1)[0]).split(' ').map(Number);
-        M = (input.splice(0, 1)[0]).split(' ').map(Number).sort(function(a,b){ return a-b; });
+        let tmp = input.splice(0, 1)[0];
+        if(typeof(tmp) == "string"){
+            tmp = tmp.split(' ').map(Number);
+        }
+        let [M, x, y] = tmp;
         // houses
-        let h = x*y;
+        let Ms = (input.splice(0, 1)[0]).split(' ').map(Number).sort(function(a,b){ return a-b; });
+        const h = x*y;
         let L_i = 1, L_s = 0;
-        M.forEach(house => {
-            let d_lef = 0, d_rig = 0, d_h_1 = house - inf, d_h_100 = sup - house;
-            let i = 0, s = 0;
-            d_lef = house - h;
-            d_rig = house + h;
-            i = (d_h_1 >= 0 && d_lef < 0) ? 1: Math.max(d_lef-1, inf);
-            s = (d_h_100 >=0 && d_rig >= 0)? (d_h_100 > d_rig)? d_rig: Math.min(d_rig, sup) : sup;
-            L_i = Math.min(L_i, i);
-            L_s = Math.max(L_s, s);
-            //console.log(h, house, d_h_1, d_lef, d_h_100, d_rig);
-            //console.log(house, i, d_h_100, d_rig);
-            console.log(house, h, i, s);
-        });
-        //console.log(M, x, y, h, h >= sup/2);
-        console.log('--', L_i, L_s, '--');
+       for(let j = 0; j < M; j++) {
+            let hi = Ms[j];
+            let left = Number(hi - h), right = Number(hi + h);
+            // standarizing range
+            if(left < inf){
+                left = inf;
+            }
+            if(right > sup){
+                right = sup;
+            }
+            // merging range
+            if(theRange.length == []){ // new range
+                theRange.push([left, right]);
+            } else { // no new range
+                let rIn = false;
+                for(let k = 0; k < theRange.length; k++){ // find in all the ranges one that fits
+                    if(inRange(theRange[k], [left, right])){ // is one inside the other? single range
+                        theRange.splice(k, 1, [ Math.min(theRange[k][0], left), Math.max(theRange[k][1], right) ]);
+                        rIn = true;
+                    }
+                }
+                if(!rIn) {
+                    theRange.push([left, right]);
+                }
+            }
+            console.log(hi, h, [left, right], theRange);
+        }
+        // clean range with resulted ranges and see what is left
+        let houses = range(1, 100);
+        for(let l = 0; l < theRange.length; l++){
+            let [a, b] = theRange[l];
+            for(let m = 0; m < b-a+1; m++){
+                let idx = houses.indexOf(a+m);
+                houses.splice(idx, 1);
+            }
+        }
+        console.log(theRange, houses, houses.length);
+        console.log('------');
+        theRange = [];
     }
 }
 
