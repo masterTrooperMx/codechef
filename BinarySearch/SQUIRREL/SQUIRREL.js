@@ -14,6 +14,7 @@ process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', cacheInput).on('end', main);
 let input ='';
+let chestnuts = [0];
 
 /**
  * The first line contains an integer t, the number of test cases, for each:
@@ -45,7 +46,47 @@ function main() {
         const [m,n,k] = stringToArr(input.splice(0, 1)[0]); // m trees, n squirrels, k chestnuts from nearest tree
         const T = stringToArr(input.splice(0, 1)[0]); // Tis
         const P = stringToArr(input.splice(0, 1)[0]); // Pis
-        console.log(i, T, P, [m, n, k]);
+        const max = Math.max(...T); // max number of secs to wait
+        //for(let j = 0; j < T.length; j++){
+        let done = false, j = 0; // j secs
+        while(!done){
+            // first look at T the to P
+            let h = 0, l = 0;
+            h = T.indexOf(j+1); // idx
+            //console.log(`j${j} h${h}`);
+            if(h >= 0){
+                chestnuts[j] = 1;
+                l = P[h]; // val of idx
+                if(l > 0){
+                    if(chestnuts[j+l] > 0){
+                        chestnuts[j+l] += 1;
+                    } else {
+                        chestnuts[j+l] = 1;
+                    }
+                } else {
+                    chestnuts[h] += 0;
+                }
+            } else {
+                if(chestnuts[j] > 0){
+                    chestnuts[j] += 0;    
+                } else {
+                    chestnuts[j] = 0;
+                }
+            }
+            //console.log(`${i} ${j} ${h} ${T[h]}->${l}, ${chestnuts}`);
+            j++;
+            if(j >= max){ // get chestnuts until we have our limit
+                done = true;
+            }
+        }
+        //console.log(i, "\n", 'Ts', T, "\n", 'Ps', P, "\n", 'mnk', `${m} trees, ${n} squirrels, ${k} chestnuts to have\n ${chestnuts}`);
+        let sum = 0;
+        j = 0;
+        while(sum < k){
+            sum += chestnuts[j];
+            j++;
+        }
+        console.log(`${sum}-${j}`);
     }
 }
 
