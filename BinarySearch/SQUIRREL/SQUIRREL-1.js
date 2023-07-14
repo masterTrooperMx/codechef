@@ -8,13 +8,13 @@
  * 
  * Calculate the shortest time (how many seconds more) the squirrels can take enough chestnuts. 
  */
-console.time('SQUIRREL');
+console.time('SQUIRREL-1');
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', cacheInput).on('end', main);
 let input ='';
-let chestnuts = [0];
+let chestnuts = [];
 
 /**
  * The first line contains an integer t, the number of test cases, for each:
@@ -38,6 +38,19 @@ const stringToArr = (str) => {
     return arr;
 }
 
+function fillSpaces(start, step, max) { // array cell to start, step of fill
+    //console.log(`${start}, ${step}, ${max}`);
+    if( start && step && max){
+        for(let i = start-1; i < max; i += step){
+            if(chestnuts[i] > 0){
+                chestnuts[i] += 1;
+            } else {
+                chestnuts[i] = 1;
+            }
+        }
+    }
+}
+
 function main() {
     prepareInput();
     const t = Number(input.splice(0, 1)[0]); // test cases
@@ -46,43 +59,14 @@ function main() {
         const [m,n,k] = stringToArr(input.splice(0, 1)[0]); // m trees, n squirrels, k chestnuts from nearest tree
         const T = stringToArr(input.splice(0, 1)[0]); // Tis
         const P = stringToArr(input.splice(0, 1)[0]); // Pis
-        const max = Math.max(...T); // max number of secs to wait
-        //for(let j = 0; j < T.length; j++){
-        let done = false, j = 0; // j secs
-        while(!done){
-            // first look at T the to P
-            let h = 0, l = 0;
-            h = T.indexOf(j+1); // idx
-            //console.log(`j${j} h${h}`);
-            if(h >= 0){
-                if(chestnuts[j] > 0){
-                    chestnuts[j] += 1;
-                } else {
-                    chestnuts[j] = 1;
-                }
-                l = P[h]; // val of idx
-                if(l > 0){
-                    if(chestnuts[j+l] > 0){
-                        chestnuts[j+l] += 1;
-                    } else {
-                        chestnuts[j+l] = 1;
-                    }
-                } else {
-                    chestnuts[h] += 0;
-                }
-            } else {
-                if(chestnuts[j] > 0){
-                    chestnuts[j] += 0;    
-                } else {
-                    chestnuts[j] = 0;
-                }
-            }
-            console.log(`${i} ${j} ${h} ${T[h]}->${l}, ${chestnuts}`);
-            j++;
-            if(j >= max){ // get chestnuts until we have our limit
-                done = true;
-            }
+        const max = Math.max(...T)+1; // max number of secs to wait
+        for(let j = 0; j < max; j++){
+            let h = T.indexOf(j+1); // idx
+            let l = P[h]; // val of idx
+            fillSpaces(h, l, max);
+            console.log(`${i} ${j}, ${T[h]}->${l}, ${chestnuts}`);
         }
+
         console.log(i, "\n", 'Ts', T, "\n", 'Ps', P, "\n", 'mnk', `${m} trees, ${n} squirrels, ${k} chestnuts to have\n ${chestnuts}`);
         let sum = 0;
         j = 0;
@@ -96,4 +80,4 @@ function main() {
 }
 
 main();
-console.timeEnd('SQUIRREL');
+console.timeEnd('SQUIRREL-1');
