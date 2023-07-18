@@ -12,7 +12,7 @@ function parseArrays() {
             }
         }
     }
-    let k = 5;
+    let k = Math.pow(10,6);
     let h = 0, l = 0;
     for(let j = 0; j < k; j++){
         h = T.indexOf(j+1); // idx
