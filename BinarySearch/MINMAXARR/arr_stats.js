@@ -56,23 +56,45 @@ console.log('mediana', Math.ceil(median(B)), 'media', Math.ceil(mean(B)), 'moda'
 console.log('mediana', Math.ceil(median(C)), 'media', Math.ceil(mean(C)), 'moda', mode(C), 'rango', range(C));
 console.log('mediana', Math.ceil(median(D)), 'media', Math.ceil(mean(D)), 'moda', mode(D), 'rango', range(D));
 
-/*
-const anaArr = arr => {
-    for(let i = 0; i < arr.length; i++){
-        if(i > 0) {
-            // se puede aplicar
-            let X = arr.slice(0, i);
-            console.log(X);
-            for(idx in X){
-                //console.log(`${i}, ${idx}, ${A[i-1]}->${A[i-1]+X[idx]}, ${A[i]}->${A[i]-X[idx]}`);
-                let tmp = A;
-                tmp[i-1] = tmp[i-1]+X[idx];
-                tmp[i] = tmp[i]-X[idx];
-                console.log(tmp);
-            }
+//https://www.geeksforgeeks.org/make-all-elements-of-an-array-equal-by-adding-or-subtracting-at-most-k/
+// Function to equalize the array by
+// adding or subtracting at most K
+// value from each element
+function equalize(arr, n, k){
+    // Finding the minimum element
+    // from the array
+    let min_ele
+        = arr.sort((a, b) => a - b)[0]
+    // Boolean variable to check if the
+    // array can be equalized or not
+    let flag = true;
+ 
+    // Traversing the array
+    for (let i = 0; i < n; i++) {
+        // Checking if the values lie
+        // within the possible range
+        // for each element
+        if (!((arr[i] + k) >= min_ele + k
+            && min_ele + k >= (arr[i] - k))) {
+ 
+            // If any value doesn't lie in
+            // the range then exit the loop
+            flag = false;
+            break;
         }
     }
-};
+ 
+    if (flag) {
+ 
+        // Value after equalizing the array
+        return min_ele + k;
+    }
+ 
+    // Array cannot be equalized
+    else
+        return -1;
+}
 
-anaArr(A);
-*/
+let K = 4;
+let N = A.length;
+console.log(equalize(A, N, K));
