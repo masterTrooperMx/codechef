@@ -16,7 +16,6 @@ process.stdin.on('data', cacheInput).on('end', main);
 let input ='';
 let T = [], P = [];
 let chestnuts = 0;
-//const max = Math.pow(10,6); // max number of secs to wait
 
 /**
  * The first line contains an integer t, the number of test cases, for each:
@@ -71,8 +70,6 @@ function main() {
         }
         console.log(`\n\n${chestnuts}`);
         //console.log(i, "\n", 'Ts', T, "\n", 'Ps', P, "\n", 'mnk', `${m} trees, ${n} squirrels, ${k} chestnuts to have\n ${chestnuts}`);
-        // look for nummer k
-        //console.log(binarySearch(sums, k, (a,b) => a-b)+1);
     }
 }
 
