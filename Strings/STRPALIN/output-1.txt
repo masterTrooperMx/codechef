@@ -1,0 +1,150 @@
+0 0
+M ritmo
+0 1
+M itmo
+0 2
+M tmo
+0 3
+M mo
+0 4
+M o
+1 0
+Mi ritmo
+1 1
+Mi itmo
+1 2
+Mi tmo
+1 3
+Mi mo
+1 4
+Mi o
+2 0
+Mir ritmo
+2 1
+Mir itmo
+2 2
+Mir tmo
+2 3
+Mir mo
+2 4
+Mir o
+3 0
+Mira ritmo
+3 1
+Mira itmo
+3 2
+Mira tmo
+3 3
+Mira mo
+3 4
+Mira o
+4 0
+Mirac ritmo
+4 1
+Mirac itmo
+4 2
+Mirac tmo
+4 3
+Mirac mo
+4 4
+Mirac o
+5 0
+Miraco ritmo
+5 1
+Miraco itmo
+5 2
+Miraco tmo
+5 3
+Miraco mo
+5 4
+Miraco o
+6 0
+Miracom ritmo
+6 1
+Miracom itmo
+6 2
+Miracom tmo
+6 3
+Miracom mo
+6 4
+Miracom o
+7 0
+Miracomo ritmo
+7 1
+Miracomo itmo
+7 2
+Miracomo tmo
+7 3
+Miracomo mo
+7 4
+Miracomo o
+8 0
+Miracomov ritmo
+8 1
+Miracomov itmo
+8 2
+Miracomov tmo
+8 3
+Miracomov mo
+8 4
+Miracomov o
+9 0
+Miracomova ritmo
+9 1
+Miracomova itmo
+9 2
+Miracomova tmo
+9 3
+Miracomova mo
+9 4
+Miracomova o
+[
+  'M',         'Mi',         'Mir',     'Mira',
+  'Mirac',     'Miraco',     'Miracom', 'Miracomo',
+  'Miracomov', 'Miracomova', 'a',       'a',
+  'ac',        'aco',        'acom',    'acomo',
+  'acomov',    'acomova',    'c',       'co',
+  'com',       'como',       'comov',   'comova',
+  'i',         'ir',         'ira',     'irac',
+  'iraco',     'iracom',     'iracomo', 'iracomov',
+  'iracomova', 'm',          'mo',      'mov',
+  'mova',      'o',          'o',       'om',
+  'omo',       'omov',       'omova',   'ov',
+  'ova',       'r',          'ra',      'rac',
+  'raco',      'racom',      'racomo',  'racomov',
+  'racomova',  'v',          'va'
+]
+res [
+  'M',         'Mi',         'Mir',      'Mira',
+  'Mirac',     'Miraco',     'Miracom',  'Miracomo',
+  'Miracomov', 'Miracomova', 'a',        'ac',
+  'aco',       'acom',       'acomo',    'acomov',
+  'acomova',   'c',          'co',       'com',
+  'como',      'comov',      'comova',   'i',
+  'ir',        'ira',        'irac',     'iraco',
+  'iracom',    'iracomo',    'iracomov', 'iracomova',
+  'm',         'mo',         'mov',      'mova',
+  'o',         'om',         'omo',      'omov',
+  'omova',     'ov',         'ova',      'r',
+  'ra',        'rac',        'raco',     'racom',
+  'racomo',    'racomov',    'racomova', 'v',
+  'va'
+]
+res1 [
+  'M',         'Mi',         'Mir',      'Mira',
+  'Mirac',     'Miraco',     'Miracom',  'Miracomo',
+  'Miracomov', 'Miracomova', 'a',        'ac',
+  'aco',       'acom',       'acomo',    'acomov',
+  'acomova',   'c',          'co',       'com',
+  'como',      'comov',      'comova',   'i',
+  'ir',        'ira',        'irac',     'iraco',
+  'iracom',    'iracomo',    'iracomov', 'iracomova',
+  'm',         'mo',         'mov',      'mova',
+  'o',         'om',         'omo',      'omov',
+  'omova',     'ov',         'ova',      'r',
+  'ra',        'rac',        'raco',     'racom',
+  'racomo',    'racomov',    'racomova', 'v',
+  'va'
+]
+53 53
+false
