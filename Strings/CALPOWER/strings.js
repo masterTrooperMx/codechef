@@ -28,3 +28,10 @@ function recall (a, n){
 }
 
 recall(perms, perms.length);
+
+let arr = [];
+arr = word.split('');
+console.log(arr);
+arr.sort();
+console.log(arr);
+console.log(arr.join(''));

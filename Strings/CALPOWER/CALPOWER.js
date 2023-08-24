@@ -1,6 +1,9 @@
 /**
- * 
+ * Each of Sardar Singh's men has a name consisting of lowercase English alphabets. 
+ * The power of a man is defined to be the maximum power over all possible rearrangements of this string.
+ * Find the power of each of Sardar Singh's men.
  */
+
 console.time('CALPOWER');
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -14,10 +17,7 @@ function cacheInput(data) {
     input += data;
 }
 /*
-The first line of input will contain a single integer T, denoting the number of test cases.
-Each test case consists of two lines of input:
-The first line of each test case contains N - the length of the initial string S.
-The second line contains the string S.
+* Brut force, take too long, solution was discarded by time in codechef
 */
 function prepareInput() {
     input = input.split('\n');//map(Number);

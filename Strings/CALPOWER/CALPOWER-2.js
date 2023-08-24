@@ -17,20 +17,10 @@ function cacheInput(data) {
     input += data;
 }
 /*
-* By ordering the letters of words we have the higher num
+* By ordering the letters of words we have the higher num. Can be simpler but passed OK
 */
 function prepareInput() {
     input = input.split('\n');//map(Number);
-}
-
-// generator
-function *permute(a, n = a.length) {
-    if (n <= 1) yield a.slice();
-    else for (let i = 0; i < n; i++) {
-      yield *permute(a, n - 1);
-      const j = n % 2 ? 0 : i;
-      [a[n-1], a[j]] = [a[j], a[n-1]];
-    }
 }
 
 function alphabetPosition(text) {
@@ -53,33 +43,22 @@ function main() { // creates a multidimensional array
             Si.push(input.splice(0, 1)[0]); // Si string
         }
         console.log(T, Si);
-
-        let maxPow = 0;
-        let maxStr = "";
+        let totalPow = 0;
         for(let i = 0; i < Si.length; i++){
             let word = Si[i];
-            let perms = Array
-                .from(permute(word.split('')))
-                .map(perm => perm.join(''))
-                .filter((el, idx, self) => (self.indexOf(el) === idx));
-            console.log(perms);
-            for(let j = 0; j < perms.length; j++){
-                let nw = perms[j];
-                let powStr = alphabetPosition(nw).split(' '); // convert it to Array
-                let k = 1;
-                let totalPow = 0;
-                powStr.forEach(element => {
-                    //console.log(k);
-                    totalPow += Number(element)*k++;
-                });
-                if(totalPow > maxPow){
-                    maxPow = totalPow;
-                    maxStr = nw;
-                }
-                console.log(totalPow);
-            } 
+            // set words in alphabetic order
+            let arr = word.split('').sort();
+            word = arr.join('');
+            console.log(word);
+            let powStr = alphabetPosition(word).split(' '); // convert it to Array
+            let k = 1;
+            powStr.forEach(element => {
+                totalPow += Number(element)*k++;
+            });
+            console.log(totalPow);
+            totalPow = 0;
         }
-        console.log(`maxPow ${maxPow}, maxStr ${maxStr}`);
+        
     }
 }
 
