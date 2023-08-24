@@ -23,21 +23,6 @@ function prepareInput() {
     input = input.split('\n');//map(Number);
 }
 
-function extractLetterWord(pos, word) {
-    // position according to array position
-    let letter = word.charAt(pos);
-    let nword = word.substring(0,pos) + word.substring(pos+1);
-    return [letter, nword];
-}
-
-function insertLetterWord(letter, pos, word) {
-    // position according to array position
-    if(pos == 0) {
-        return letter + word;
-    } else {
-        return word.substring(0,pos) + letter + word.substring(pos);
-    }
-}
 // generator
 function *permute(a, n = a.length) {
     if (n <= 1) yield a.slice();
@@ -67,40 +52,35 @@ function main() { // creates a multidimensional array
         for(let i = 0; i < T; i++){
             Si.push(input.splice(0, 1)[0]); // Si string
         }
-    }
-    console.log(T, Si);
+        console.log(T, Si);
 
-    let maxPow = 0;
-    let maxStr = "";
-    for(let i = 0; i < Si.length; i++){
-        let word = Si[i];
-        // split letter and word
-        for(let j = 0; j < word.length; j++){ // move letter
-            let [l, w] = extractLetterWord(j, word);
-            console.log(l, w);
-            // do the permutation
-            for(let m = 0; m < w.length+1; m++){
-                let nw = insertLetterWord(l, m, w); // insert letter
-                console.log(`-${m}, ${nw}`);
+        let maxPow = 0;
+        let maxStr = "";
+        for(let i = 0; i < Si.length; i++){
+            let word = Si[i];
+            let perms = Array
+                .from(permute(word.split('')))
+                .map(perm => perm.join(''))
+                .filter((el, idx, self) => (self.indexOf(el) === idx));
+            console.log(perms);
+            for(let j = 0; j < perms.length; j++){
+                let nw = perms[j];
                 let powStr = alphabetPosition(nw).split(' '); // convert it to Array
-                console.log(powStr);
                 let k = 1;
                 let totalPow = 0;
                 powStr.forEach(element => {
                     //console.log(k);
                     totalPow += Number(element)*k++;
                 });
-                k = 1;
-                // compare value to get max
                 if(totalPow > maxPow){
                     maxPow = totalPow;
                     maxStr = nw;
                 }
                 console.log(totalPow);
-            }    
+            } 
         }
+        console.log(`maxPow ${maxPow}, maxStr ${maxStr}`);
     }
-    console.log(`maxPow ${maxPow}, maxStr ${maxStr}`);
 }
 
 main();
