@@ -16,27 +16,8 @@ function cacheInput(data) {
     input += data;
 }
 /*
-* Brut force attemp
+* Will try to find an element of string A in string B, if so we have the chance to create a palindrome
 */
-function isPalin(A) {
-    let nA = A.split('').reverse().join('');
-    if(A == nA){
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function allSubsStr(str) {
-    let result = [];
-  
-    for (let i = 0; i < str.length; i++) {
-        for (let j = i + 1; j < str.length + 1; j++) {
-            result.push(str.slice(i, j));
-        }
-    }
-    return [... new Set(result)].sort();
-}
 
 function prepareInput() {
     input = input.split('\n');//map(Number);
@@ -52,28 +33,18 @@ function main() { // creates a multidimensional array
         for(let i = 0; i < T; i++){
             let strA = input.splice(0, 1)[0];
             let strB = input.splice(0, 1)[0];
-            let arrA = allSubsStr(strA);
-            let arrB = allSubsStr(strB);
-            console.log(strA, strB, '...', arrA, arrB);
-            for(let j = 0; j < arrA.length; j++){
-                for(let k = 0; k < arrB.length; k++){
-                    let word = arrA[j] + arrB[k];
-                    palin = isPalin(word);
-                    if(palin) {
-                        console.log('YES');
-                        break;
-                    }
-                    console.log(j, k, word, isPalin(word));
-                    //console.log(subA, subB);
-                }
-                if(palin) {
+            for(let j = 0; j < strA.length; j++){
+                if(strB.includes(strA[j])){
+                    palin = true;
+                    console.log('YES');
                     break;
                 }
             }
-            console.log('-----');
-            if(!palin) {
+            if(!palin){
                 console.log('NO');
             }
+            palin = false;
+            console.log('-----');
         }
     }
 }
